@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>jQuery </title>            
+    </head>
+    <body>
+        <form id="formularz">
+            <fieldset>
+                <legend>Prosty przyklad walidacji formularza</legend>
+                    <p>
+                        <label for="cname">Imie</label>
+                        <em>*</em>
+                        <input id="cname" name="name" size="25">
+                    </p>
+                    <p>
+                        <label for="cemail">E-Mail</label>
+                        <em>*</em>
+                        <input id="cemail" name="email" size="25">
+                    </p>
+                    
+                    <p>
+                        <label for="cmiasto">Miasto</label>
+                        <em>*</em>
+                        <input type="text" id="cmiasto" name="miasto" size="25">
+                    </p>
+                    <p>
+                        <label for="ckod">Kod pocztowy</label>
+                        <em>*</em>
+                        <input type="text" id="ckod" name="kod" size="25">
+                    </p>
+                    <p>
+                        <label for="cul">Ulica</label>
+                        <em>*</em>
+                        <input type="text" id="cul" name="ul" size="25">
+                    </p>
+                    <p>
+                        <label for="cdom">Numer domu</label>
+                        <em>*</em>
+                        <input type="text" id="cdom" name="dom" size="25">
+                    </p>
+
+
+
+                    <p>
+                        <input class="submit" type="submit" value="Wyslij !">
+                    </p> 
+                    
+
+            </fieldset>
+          
+        </form>
+        <form id="formularz2">
+            <fieldset>
+                <legend>Hasło</legend>
+                <p>
+                    <label for="chaslo1">Bieżące hasło</label>
+                    <em>*</em>
+                    <input type="text" id="chaslo1" name="haslo1" size="25">
+                </p>
+                <p>
+                    <label for="chaslo3">Nowe hasło</label>
+                    <em>*</em>
+                    <input type="text" id="chaslo2" name="haslo2" size="25">
+                </p>
+                <p>
+                    <label for="chaslo3">Nowe hasło (ponownie)</label>
+                    <em>*</em>
+                    <input type="text" id="chaslo3" name="haslo3" size="25">
+                </p>
+                <p>
+                    <input class="submit" id="click" type="submit" value="Wyslij !">
+                </p>
+            </fieldset>
+        </form>
+    </body>
+</html>
+
+<style>
+    em, .error 
+    {       
+        color: red;
+    } 
+</style>
+<script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+<script src="http://ajax.microsoft.com/ajax/jquery.validate/1.6/jquery.validate.js"></script>
+<script>
+    $(document).ready(function() 
+    {      
+        $("#formularz").validate(
+        {  
+            rules:
+            {
+                name:
+                {   
+                    required:true,  
+                    minlength:2,
+                },
+                email:
+                {   
+                    required: true, 
+                },
+                miasto:
+                { 
+                    maxlength:30,
+                    required: true,
+                    accept:"[a-zA-z]+"
+                },
+                kod:
+                {
+                    required: true,
+                    accept:"[0-9-]",
+                },
+                ul:
+                { 
+                    maxlength:30,
+                    required: true,
+                    accept:"[a-zA-z0-9 ]+"
+                },
+                dom:
+                {
+                    required: true,
+                    accept:"[0-9]",
+                },
+                
+            },
+
+            messages: 
+            {
+                name: 
+                {
+                    required: "Pole wymagane",
+                    minlength: "Wpisz conajmniej {0} znaków",
+                    accept:"Dopuszczalne znaki to litery"
+                },
+                email: 
+                {
+                    required: "Pole wymagane",
+                    email:"Wpisz prawidłowy e-mail"
+                },
+                miasto:
+                {
+                    required: "Pole wymagane",
+                },
+                miasto:
+                {
+                    required: "Pole wymagane",
+                    accept:"Pole przeznaczone tylko na litery",
+                },
+                kod:
+                {
+                    required: "Pole wymagane",
+                    accept:"Pole przeznaczone tylko na cyfry",
+                },
+                ul:
+                {
+                    required: "Pole wymagane",
+                    accept:"Pole nie przeznaczone na znaki specjalne",
+                },
+                dom:
+                {
+                    required: "Pole wymagane",
+                    accept:"Pole przeznaczone tylko na cyfry",
+                },
+            }
+        });
+        $("#formularz2").validate(
+            {
+                rules:
+                {
+                    haslo1:
+                    {
+                        required:true,
+                        minlength:7,
+                        maxlength:15,
+                    },
+                    haslo2:
+                    {
+                        required:true,
+                        minlength:7,
+                        maxlength:15,
+                    },
+                    haslo3:
+                    {
+                        required:true,
+                        minlength:7,
+                        maxlength:15,
+                    },
+                },
+                messages:
+                {
+                    haslo1:
+                    {
+                        required:"Polwe wymagane",
+                        minlength:"Pole wymaga co najmniej 7 znaków",
+                        maxlength:"Pole dopuszcza maksymalnie 15 znaków",
+                    },
+                    haslo2:
+                    {
+                        required:"Polwe wymagane",
+                        minlength:"Pole wymaga co najmniej 7 znaków",
+                        maxlength:"Pole dopuszcza maksymalnie 15 znaków",
+                    },
+                    haslo3:
+                    {
+                        required:"Polwe wymagane",
+                        minlength:"Pole wymaga co najmniej 7 znaków",
+                        maxlength:"Pole dopuszcza maksymalnie 15 znaków",
+                    },
+                },
+               
+
+            });
+            $("#click").click(function()
+            {
+                var haslo2 = $("#chaslo2").val();
+                var haslo3 = $("#chaslo3").val();
+                if(haslo2!=haslo3)
+                {
+                   alert("Nowe hasła nie są takie same");
+                }
+
+            });
+            
+        
+       
+    });
+</script>
